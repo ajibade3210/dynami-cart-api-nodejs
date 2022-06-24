@@ -10,24 +10,18 @@ const { Sequelize, DataTypes } = require("sequelize");
 //   port: dbConfig.port,
 //   dialect: dbConfig.dialect,
 
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+  host: dbConfig.host,
+  dialect: dbConfig.dialect,
+  port: dbConfig.port,
 
-const sequelize = new Sequelize(
-  dbConfig.database,
-  dbConfig.username,
-  dbConfig.password,
-  {
-    host: dbConfig.host,
-    dialect: dbConfig.dialect,
-    port: dbConfig.port,
-
-    pool: {
-      max: dbConfig.pool.max,
-      min: dbConfig.pool.min,
-      acquire: dbConfig.pool.acquire,
-      idle: dbConfig.pool.idle,
-    },
-  }
-);
+  pool: {
+    max: dbConfig.pool.max,
+    min: dbConfig.pool.min,
+    acquire: dbConfig.pool.acquire,
+    idle: dbConfig.pool.idle,
+  },
+});
 
 sequelize
   .authenticate()
