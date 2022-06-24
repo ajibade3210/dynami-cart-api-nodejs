@@ -3,8 +3,7 @@ const dbConfig = require("../config/dbConfig");
 const { Sequelize, DataTypes } = require("sequelize");
 
 if (!global.hasOwnProperty("models")) {
-  var Sequelize = require("sequelize"),
-    sequelize = null;
+  sequelize = null;
   if (process.env.HEROKU_POSTGRESQL_BRONZE_URL) {
     // the application is executed on Heroku ... use the postgres         database
     sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_BRONZE_URL, {
