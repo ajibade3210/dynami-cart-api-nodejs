@@ -9,24 +9,34 @@ const { Sequelize, DataTypes } = require("sequelize");
 //   host: dbConfig.host,
 //   port: dbConfig.port,
 //   dialect: dbConfig.dialect,
+if (process.env.HEROKU_POSTGRESQL_BRONZE_URL) {
+  // the application is executed on Heroku ... use the postgres         database
+  sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_BRONZE_URL, {
+    dialect: "postgres",
+    protocol: "postgres",
+    port: 5432,
+    host: "<heroku host>",
+    logging: true, //false
+  });
+} else {
+  const sequelize = new Sequelize(
+    dbConfig.database,
+    dbConfig.username,
+    dbConfig.password,
+    {
+      host: dbConfig.host,
+      dialect: dbConfig.dialect,
+      port: dbConfig.port,
 
-const sequelize = new Sequelize(
-  dbConfig.database,
-  dbConfig.username,
-  dbConfig.password,
-  {
-    host: dbConfig.host,
-    dialect: dbConfig.dialect,
-    port: dbConfig.port,
-
-    pool: {
-      max: dbConfig.pool.max,
-      min: dbConfig.pool.min,
-      acquire: dbConfig.pool.acquire,
-      idle: dbConfig.pool.idle,
-    },
-  }
-);
+      pool: {
+        max: dbConfig.pool.max,
+        min: dbConfig.pool.min,
+        acquire: dbConfig.pool.acquire,
+        idle: dbConfig.pool.idle,
+      },
+    }
+  );
+}
 
 sequelize
   .authenticate()
