@@ -2,18 +2,8 @@ const dbConfig = require("../config/dbConfig");
 
 const { Sequelize, DataTypes } = require("sequelize");
 
-
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
-  host: dbConfig.host,
-  dialect: dbConfig.dialect,
-  port: dbConfig.port,
-
-  pool: {
-    max: dbConfig.pool.max,
-    min: dbConfig.pool.min,
-    acquire: dbConfig.pool.acquire,
-    idle: dbConfig.pool.idle,
-  },
+  dialect: "postgres",
 });
 
 sequelize
