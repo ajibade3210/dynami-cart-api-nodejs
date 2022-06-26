@@ -2,16 +2,6 @@ const dbConfig = require("../config/dbConfig");
 
 const { Sequelize, DataTypes } = require("sequelize");
 
-// const sequelize = new Sequelize(process.env.DATABASE_URL, {
-//   dialect: "postgres",
-//   dialectOptions: {
-//     ssl: {
-//         require: true,
-//         rejectUnauthorized: false
-//     }
-//  },
-// });
-
 const sequelize = new Sequelize(
   dbConfig.database,
   dbConfig.username,
@@ -44,9 +34,6 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-// db.products = require("./productModel.js")(sequelize, DataTypes);
-// db.reviews = require("./reviewModel.js")(sequelize, DataTypes);
-
 db.carts = require("./cart.model.js")(sequelize, DataTypes);
 db.coupons = require("./coupon.model")(sequelize, DataTypes);
 
@@ -56,12 +43,12 @@ db.sequelize.sync({ force: false }).then(() => {
 });
 
 //ONE to MANY Relation
-// db.products.hasMany(db.reviews, {
+// db.carts.hasMany(db.coupons, {
 //   foreignKey: "product_id",
 //   as: "review",
 // });
 
-// db.reviews.belongsTo(db.products, {
+// db.coupons.belongsTo(db.carts, {
 //   foreignKey: "product_id",
 //   as: "product",
 // });
