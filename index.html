@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <style>
+        p {
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body class="container py-3">
+    <h2>Scelloo NodeJS Backend Task</h2>
+
+    <h4>The Cart API~</h4>
+    <p>Coupon System with a few rules and discount types,
+        Where new rules and discount types added dynamically.</p>
+
+    <div class="container p-5">
+        <h5 class="text-success">Cart API</h5>
+        <ul>
+            <li>
+                <p>GET All Items From Cart: <strong><a
+                            href="http://localhost:8080/api/carts">http://localhost:8080/api/carts</a>
+                    </strong></p>
+            </li>
+            <li>
+                <p>ADD New Item To Cart: <strong class="dt"><a
+                            href="http://localhost:8080/api/carts/save">http://localhost:8080/api/carts/save</a>
+                    </strong> </p>
+                <pre class="text-danger">
+            {
+                "name": "mirror",
+                "price": 7000
+            }
+</pre>
+            </li>
+            <li>
+                <p>DELETE Item From Cart: <strong> <a
+                            href="http://localhost:8080/api/carts/{id}">http://localhost:8080/api/carts/{id}</a></strong>
+                </p>
+            </li>
+            <li>
+                <p>CheckOut Coupon On Total Cart Item: <strong><a
+                            href="http://localhost:8080/api/carts/coupon">http://localhost:8080/api/carts/coupon</a>
+                    </strong>
+                </p>
+                <pre class="text-danger">
+            {
+                "coupon":"MIXED10"
+            }
+            </pre>
+            </li>
+        </ul>
+
+
+
+        <h5 class="mt-5 text-success">Coupon Rules API</h5>
+        <ul>
+            <li>
+                <p>ADD New Coupon Rule: <strong><a
+                            href="http://localhost:8080/api/coupon/save">http://localhost:8080/api/carts/save</a>
+                    </strong> </p>
+                <pre class="text-danger">
+            {
+                "name": "MIXED10",
+                "priceRange": 200,
+                "percentOff": 10,
+                "amountOff": 10,
+                "limit": 3
+           }
+            </pre>
+            </li>
+            <li>
+                <p>DELETE Coupon Rule: <strong> <a
+                            href="http://localhost:8080/api/carts/{id}">http://localhost:8080/api/carts/{id}</a></strong>
+                </p>
+            </li>
+            <li>
+                <p>GET Coupon Rules: <strong><a
+                            href="http://localhost:8080/api/carts/{id}">http://localhost:8080/api/carts/{id}</a>
+                    </strong></p>
+            </li>
+        </ul>
+
+
+
+    </div>
+</body>
+
+</html>

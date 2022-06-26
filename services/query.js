@@ -11,47 +11,57 @@ async function couponFilter(name, priceRange, limit, percentOff, amountOff) {
   let cartItems = await Cart.findAll({});
   let totalPrice = await Cart.sum("price");
   console.log("totalPrice", totalPrice);
+  console.log(cartItems.length - 1 + "---", limit);
 
-  if (totalPrice > priceRange && limit >= 4) {
-    console.log("REJECTED10");
-    totalPrice = fixed(totalPrice, amountOff);
-    totalPrice = percentCalc(totalPrice, percentOff);
-    return {
-      cartItems,
-      message: `${name} Discount Accepted`,
-      totalPrice,
-    };
-  } else if (totalPrice > priceRange && limit >= 3) {
-    console.log("MIXED10");
-    let fixedNum = fixed(totalPrice, amountOff);
-    let couponDiscount = percentCalc(totalPrice, percentOff);
+  if (cartItems.length >= limit) {
+    if (totalPrice > priceRange && limit >= 4) {
+      console.log("REJECTED10");
+      totalPrice = fixed(totalPrice, amountOff);
+      totalPrice = percentCalc(totalPrice, percentOff);
+      return {
+        cartItems,
+        message: `${name} Discount Accepted`,
+        totalPrice,
+      };
+    } else if (totalPrice > priceRange && limit >= 3) {
+      console.log("MIXED10");
+      let fixedNum = fixed(totalPrice, amountOff);
+      let couponDiscount = percentCalc(totalPrice, percentOff);
 
-    if (fixedNum > couponDiscount) {
-      totalPrice = fixedNum;
-    } else {
-      totalPrice = couponDiscount;
+      if (fixedNum > couponDiscount) {
+        totalPrice = fixedNum;
+      } else {
+        totalPrice = couponDiscount;
+      }
+
+      return {
+        cartItems,
+        message: `${name} Discount Accepted`,
+        totalPrice,
+      };
+    } else if (totalPrice > priceRange && limit >= 2) {
+      console.log("PERCENT10");
+      totalPrice = percentCalc(totalPrice, percentOff);
+
+      return {
+        cartItems,
+        message: `${name} Discount Accepted`,
+        totalPrice,
+      };
+    } else if (totalPrice > priceRange && limit >= 1) {
+      console.log("FIXED10");
+      totalPrice = fixed(totalPrice, amountOff);
+      return {
+        cartItems,
+        message: `${name} Discount Accepted`,
+        totalPrice,
+      };
     }
-
+  } else {
+    console.log("No Coupon");
     return {
       cartItems,
-      message: `${name} Discount Accepted`,
-      totalPrice,
-    };
-  } else if (totalPrice > priceRange && limit >= 2) {
-    console.log("PERCENT10");
-    totalPrice = percentCalc(totalPrice, percentOff);
-
-    return {
-      cartItems,
-      message: `${name} Discount Accepted`,
-      totalPrice,
-    };
-  } else if (totalPrice > priceRange && limit >= 1) {
-    console.log("FIXED10");
-    totalPrice = fixed(totalPrice, amountOff);
-    return {
-      cartItems,
-      message: `${name} Discount Accepted`,
+      message: "Cart Size Not Eligible For This Discount",
       totalPrice,
     };
   }

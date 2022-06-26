@@ -17,8 +17,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/carts", router);
 app.use("/api/coupons", couponRouter);
 
-app.get("/", (req, res) => {
-  res.json({ message: "Cart API" });
+// app.get("/", (req, res) => {
+//   res.json({ message: "Cart API" });
+// });
+
+// add this below app.use("/", routes) to make index.html a static file
+app.route("/").get(function (req, res) {
+  res.sendFile(process.cwd() + "/index.html");
 });
 
 module.exports = app;
