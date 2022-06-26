@@ -3,3 +3,5 @@
 ### Sequelize
 
 This is an Object Relational Mapper(ORM)
+
+
