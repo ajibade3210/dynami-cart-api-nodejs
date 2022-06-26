@@ -28,7 +28,7 @@ const addCoupon = async (req, res) => {
 // @route  GET /
 const getAllCoupons = async (req, res) => {
   let coupons = await Coupon.findAll({});
-  res.status(200).send(coupons);
+  res.status(200).send({ coupons });
 };
 
 // @desc   Delete Cart Item
