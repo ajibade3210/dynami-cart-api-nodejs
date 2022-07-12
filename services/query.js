@@ -28,10 +28,11 @@ async function couponFilter(name, priceRange, limit, percentOff, amountOff) {
       let fixedNum = fixed(totalPrice, amountOff);
       let couponDiscount = percentCalc(totalPrice, percentOff);
 
-      if (fixedNum > couponDiscount) {
-        totalPrice = fixedNum;
-      } else {
+      //couponDiscount Discount is Less === more Discount Rate Than FixedNum
+      if (couponDiscount < fixedNum) {
         totalPrice = couponDiscount;
+      } else {
+        totalPrice = fixedNum;
       }
 
       return {
